@@ -11,12 +11,12 @@ function App() {
                 {/* <ButtonComp text={"Home"} /> */}
             </Mui.Box>
             <Mui.Grid container>
-                <Mui.Grid item xs={12} md={8}>
+                <Mui.Grid item xs={12} md={12}>
                     <MainComp />
                 </Mui.Grid>
-                <Mui.Grid item xs={12} md={4}>
+                {/* <Mui.Grid item xs={12} md={4}>
                     {/* <Ads /> */}
-                </Mui.Grid>
+                {/* </Mui.Grid> */}
             </Mui.Grid>
             <Mui.Box width="100%">{/* footer */}</Mui.Box>
         </Mui.Container>
