@@ -2,19 +2,20 @@ import "./App.css";
 import * as Mui from "@mui/material";
 import ButtonComp from "./components/button";
 import Ads from "./components/ads";
+import MainComp from "./components/mainComp";
 function App() {
     return (
         <Mui.Container maxWidth="false">
             <Mui.Box width="100%">
                 {/* nav bar */}
-                <ButtonComp text={"Home"} />
+                {/* <ButtonComp text={"Home"} /> */}
             </Mui.Box>
             <Mui.Grid container>
                 <Mui.Grid item xs={12} md={8}>
-                    {/* main */}
+                    <MainComp />
                 </Mui.Grid>
                 <Mui.Grid item xs={12} md={4}>
-                    <Ads />
+                    {/* <Ads /> */}
                 </Mui.Grid>
             </Mui.Grid>
             <Mui.Box width="100%">{/* footer */}</Mui.Box>
