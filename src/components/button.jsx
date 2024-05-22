@@ -1,9 +1,9 @@
 import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
 
-const ButtonComp = ({ text, onClick }) => {
+const ButtonComp = ({ text, onClick, sx, ...props }) => {
     return (
-        <Button variant="outlined" onClick={onClick}>
+        <Button variant="outlined" onClick={onClick} sx={sx} {...props}>
             {text}
         </Button>
     );
@@ -12,6 +12,7 @@ const ButtonComp = ({ text, onClick }) => {
 ButtonComp.propTypes = {
     text: PropTypes.string.isRequired,
     onClick: PropTypes.func,
+    sx: PropTypes.object,
 };
 
 export default ButtonComp;

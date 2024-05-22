@@ -1,25 +1,27 @@
 import "./App.css";
 import * as Mui from "@mui/material";
-import ButtonComp from "./components/button";
-import Ads from "./components/ads";
 import MainComp from "./components/mainComp";
+import Header from "./layout/header/header";
+import { useDispatch, useSelector } from "react-redux";
+import { darkThemeActions } from "./store/darkThemeSlice";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./layout/theme/theme";
+
 function App() {
+    const dispatch = useDispatch();
+    const isDarkTheme = useSelector((store) => store.darkThemeSlice.darkTheme);
+    const handleThemeChange = () => {
+        dispatch(darkThemeActions.changeTheme());
+    };
     return (
-        <Mui.Container maxWidth="false">
-            <Mui.Box width="100%">
-                {/* nav bar */}
-                {/* <ButtonComp text={"Home"} /> */}
-            </Mui.Box>
-            <Mui.Grid container>
-                <Mui.Grid item xs={12} md={12}>
-                    <MainComp />
-                </Mui.Grid>
-                {/* <Mui.Grid item xs={12} md={4}>
-                    {/* <Ads /> */}
-                {/* </Mui.Grid> */}
-            </Mui.Grid>
+        <ThemeProvider theme={theme(isDarkTheme)}>
+            {/* <Mui.Container sx={{ width: "100vw", height: "90vh" }}> */}
+            <Mui.CssBaseline />
+            <Header isDarkTheme={isDarkTheme} onThemeChange={handleThemeChange} />
+            <MainComp />
             <Mui.Box width="100%">{/* footer */}</Mui.Box>
-        </Mui.Container>
+            {/* </Mui.Container> */}
+        </ThemeProvider>
     );
 }
 
