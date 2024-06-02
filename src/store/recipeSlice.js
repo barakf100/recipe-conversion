@@ -16,7 +16,8 @@ const recipeSlice = createSlice({
             state.recipes.name = action.payload;
         },
         addIngredient: (state, action) => {
-            state.recipes.ingredients.push(action.payload);
+            console.log(action.payload, "action.payload");
+            state.recipes.ingredients = action.payload;
         },
     },
 });

@@ -1,44 +1,31 @@
-import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
-import ButtonComp from "./button";
+import { Box, Paper, Table, TableBody, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
+import ButtonComp from "../components/button";
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import recipeSlice, { addIngredient, addRecipe } from "../store/recipeSlice";
-import store from "../store/store";
+import { addIngredient } from "../store/recipeSlice";
+import TableCellComp from "../components/Table_Cell_Component";
+import DropDown from "../components/Drop_Down";
 
-const TableCellComp = ({ children, sx }) => {
-    return (
-        <TableCell align="right" sx={{ ...sx, border: 0 }}>
-            {children}
-        </TableCell>
-    );
-};
-TableCellComp.propTypes = {
-    children: PropTypes.node,
-    sx: PropTypes.object,
-};
-
-const TableComponent = () => {
+const EnterRecipe = () => {
     const state = useSelector((store) => store.recipeSlice);
     console.log(state);
     const dispatch = useDispatch();
-    const [recipeName, setRecipeName] = useState("");
     const [ingredients, setIngredients] = useState(Array.from({ length: 6 }, () => ({ name: "", amount: "", unit: "" })));
     const [save, setSave] = useState(false);
 
     const handleSave = () => {
         console.log(ingredients, "ingredients");
-        // dispatch(addRecipe(recipeName));
-        ingredients.forEach((ingredient) => {
-            if (ingredient.name === "" || ingredient.amount === "" || ingredient.unit === "") return;
-            dispatch(addIngredient(ingredient));
-        });
+        dispatch(addIngredient(ingredients));
     };
+
     const handleInputChange = (index, field) => (event) => {
-        const newIngredients = [...ingredients];
-        newIngredients[index][field] = event.target.value;
+        const newIngredients = ingredients.map((ingredient, i) => {
+            if (i === index) {
+                return { ...ingredient, [field]: event.target.value };
+            }
+            return ingredient;
+        });
         setIngredients(newIngredients);
-        console.log(ingredients);
     };
 
     const addIngredientRow = () => {
@@ -58,13 +45,13 @@ const TableComponent = () => {
                 <TableBody>
                     {ingredients.map((ingredient, index) => (
                         <TableRow key={index}>
-                            <TableCellComp sx={{ width: "4vw" }}>
+                            <TableCellComp sx={{ width: "6vw" }}>
                                 <TextField placeholder="כמות" onChange={handleInputChange(index, "amount")} />
                             </TableCellComp>
                             <TableCellComp sx={{ width: "8vw" }}>
-                                <TextField placeholder="בחר סוג" onChange={handleInputChange(index, "unit")} />
+                                <DropDown />
                             </TableCellComp>
-                            <TableCellComp sx={{ width: "12vw" }}>
+                            <TableCellComp sx={{ width: "10vw" }}>
                                 <TextField placeholder="סוג המוצר" onChange={handleInputChange(index, "name")} />
                             </TableCellComp>
                         </TableRow>
@@ -72,9 +59,9 @@ const TableComponent = () => {
                 </TableBody>
             </Table>
             <Box sx={{ display: "flex", justifyContent: "center", m: 1 }}>
-                <ButtonComp disabled={save} sx={{ ml: 3 }} text="הוסף שורה" onClick={() => addIngredientRow()} />
+                <ButtonComp sx={{ ml: 3 }} text="הוסף שורה" onClick={() => addIngredientRow()} />
                 <ButtonComp
-                    text={save ? "ערוך" : "המר"}
+                    text="המר"
                     onClick={() => {
                         setSave(!save);
                         handleSave();
@@ -85,4 +72,4 @@ const TableComponent = () => {
     );
 };
 
-export default TableComponent;
+export default EnterRecipe;

@@ -1,11 +1,11 @@
 import "./App.css";
 import * as Mui from "@mui/material";
-import MainComp from "./components/mainComp";
 import Header from "./layout/header/header";
 import { useDispatch, useSelector } from "react-redux";
 import { darkThemeActions } from "./store/darkThemeSlice";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./layout/theme/theme";
+import MainComp from "./layout/mainComp";
 
 function App() {
     const dispatch = useDispatch();
